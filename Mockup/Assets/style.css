@@ -42,3 +42,32 @@ h1 {
   float:right;
   padding:20px 0;
 }
+
+/* トップナビ */
+ul#topnav{
+clear:both;
+overflow:hidden;
+margin:0 auto 30px;
+background:#358cac;
+}
+
+* html ul#topnav{height:1%;}
+
+ul#topnav li{
+float:left;
+}
+
+ul#topnav a{
+width:146px;
+font-size:12px;
+display:block;
+padding:5px 0 20px 10px;
+color:#fff;
+border-left:1px solid #fff;
+}
+
+ul#topnav li:first-child a{border:0;}
+
+ul#topnav li:last-child a{width:145px;}
+
+ul#topnav li.active a,ul#topnav a:hover{background:#73c4e6;}
