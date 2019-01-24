@@ -48,14 +48,19 @@ const login = function(){
   if(flg){
     const mypageContainer = document.getElementById("mypage-container");
     const fragment = document.createDocumentFragment();
-    const info = document.createElement("div");
-    info.className = "info";
-    info.insertAdjacentHTML("beforeend",
-      ` <div class="text">こんにちは${currentUser.id}さん<br>
-        ～あなたの情報～<br>
-        年齢${currentUser.age}</div>
-        <div class="input-button" id="setting-button">編集</div>`
-    )
+    const info = (()=>{
+      const info = document.createElement("div");
+
+      info.className = "info";
+      info.insertAdjacentHTML("beforeend",
+        ` <div class="text">こんにちは${currentUser.id}さん<br>
+          ～あなたの情報～<br>
+          年齢${currentUser.age}</div>
+          <div class="input-button" id="setting-button">編集</div>`
+      )
+      return info
+    })()
+    
     fragment.appendChild(info);
     mypageContainer.textContent = ""
     mypageContainer.appendChild(fragment)

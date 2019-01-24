@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './assets/style.css';
-
+import Mypage from './Mypage'
+import { Router, Route, IndexRoute, browserHistory, Link } from 'react-router';
 class App extends Component {
 
   constructor(){
@@ -17,29 +18,37 @@ class App extends Component {
       count: this.state.count + 1,
     })
     this.state.menber.push("d")
+
   }
+
+  componentDidMount(){
+    console.log(this.refs)
+
+  }
+
 
   render() {
     return (
       <div>
         <div id="header">
-          <div class="inner">
+          <div className="inner">
             <h1>もぐけあ</h1>
-            <div class="logo">
+            <div className="logo">
               <a href="index.html">MoGu Care</a>
             </div>
-            <div class="headerInfo">
+            <div className="headerInfo">
               モックアップバージョン
             </div>
             <ul id="topnav">
-              <li class="active"><a href="index.html">トップページ<br/><span>Top</span></a></li>
-              <li><a href="myPage.html">マイページ<br/><span>MyPage</span></a></li>
+              <li className="active"><Link to={"/"}>トップページ<br/><span>Top</span></Link></li>
+              <li><Link to={"/login/"}>マイページ<br/><span>MyPage</span></Link></li>
             </ul>
           </div>
         </div>
-        <div>
+        <div onClick={this.countUp}>
           ベトナムに平和をもたらす
-      </div>
+        </div>
+        <Mypage test={12} />
       </div>
     );
   }
