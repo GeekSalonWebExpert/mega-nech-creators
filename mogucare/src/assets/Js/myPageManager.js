@@ -4,14 +4,6 @@ var inputID2 = null;
 var inputPW2 = null;
 var inputAge = null;
 
-let user = {
-  id:"未設定",
-  pw:"未設定",
-  age:"未設定",
-}
-
-let currentUser = user;
-let currentNum = -1;
 
 const storage = {
   setList: function(json) {
@@ -22,6 +14,15 @@ const storage = {
     return JSON.parse(localStorage["users"] || "[]");
   }
 }
+
+let user = {
+  id:"未設定",
+  pw:"未設定",
+  age:"未設定",
+}
+
+let currentUser = user;
+let currentNum = -1;
 
 window.onload = function() {
   // updateView();
