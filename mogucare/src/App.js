@@ -1,10 +1,23 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './assets/style.css';
-import Mypage from './Mypage'
-import { Router, Route, IndexRoute, browserHistory, Link } from 'react-router';
-class App extends Component {
+import Mypage from './Mypage';
+import Login from './Login';
+import Header from './Header';
+import {Router, Route, IndexRoute, browserHistory, Link, BrowserRouter } from 'react-router';
 
+// const App = () => (
+//     <BrowserRouter>
+//     <div>
+//       <Route exact path='/' component={App} />
+//       <Route path='/login' component={Login} />
+//       <Route path='/mypage/:id' component={Mypage} />
+//     </div>
+//   </BrowserRouter>
+// )
+
+//トップページ　名前変えるべき
+class App extends Component {
   constructor(){
     super()
     this.state = {
@@ -13,45 +26,23 @@ class App extends Component {
     }
   }
 
-  countUp(){
-    this.setState({
-      count: this.state.count + 1,
-    })
-    this.state.menber.push("d")
-
-  }
-
   componentDidMount(){
     console.log(this.refs)
-
   }
-
 
   render() {
     return (
       <div>
-        <div id="header">
-          <div className="inner">
-            <h1>もぐけあ</h1>
-            <div className="logo">
-              <a href="index.html">MoGu Care</a>
-            </div>
-            <div className="headerInfo">
-              モックアップバージョン
-            </div>
-            <ul id="topnav">
-              <li className="active"><Link to={"/"}>トップページ<br/><span>Top</span></Link></li>
-              <li><Link to={"/login/"}>マイページ<br/><span>MyPage</span></Link></li>
-            </ul>
-          </div>
-        </div>
-        <div onClick={this.countUp}>
+        <Header/>
+        <div>
           ベトナムに平和をもたらす
         </div>
-        <Mypage test={12} />
       </div>
     );
   }
 }
+
+//id付きでの移動例
+// <Mypage test={12} />
 
 export default App;
