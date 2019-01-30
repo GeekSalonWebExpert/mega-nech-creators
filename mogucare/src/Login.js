@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './assets/style.css';
 import Mypage from './Mypage';
 import Header from './Header';
@@ -19,6 +19,7 @@ let user = {
   id:"未設定",
   pw:"未設定",
   age:"未設定",
+  region:"未設定"
 }
 
 let currentUser = user;
@@ -37,9 +38,6 @@ class Login extends Component {
 
 
   buttonLogin(){
-    console.log("ろぐいん");
-    console.log(this.refs["input-ID"].value);
-    console.log(this.refs["input-PW"].value);
     //value でよくね？気が向いたら直す
     let inputID = this.refs["input-ID"];
     let inputPW = this.refs["input-PW"];
@@ -58,18 +56,21 @@ class Login extends Component {
 
     //ログイン成功
     if(flg){
-      window.alert("ろぐいん");
+      //window.alert("ろぐいん");
       //mypageに移動
-      this.props.history.push('/mypage');
-      //ログイン失敗
+      browserHistory.push(`/mypage/${currentNum}/`);
+      //this.props.history.push('/mypage');
+
+    //ログイン失敗
     }else{
       window.alert("IDまたはパスワードが違います");
     }
 
   }
 
+  //IDかぶりではじく処理をあとで追加する
   addNewUser(){
-    console.log("しんきとうろく");
+    //console.log("しんきとうろく");
     //value でよくね？気が向いたら直す
     let inputID = this.refs["input-ID"];
     let inputPW = this.refs["input-PW"];

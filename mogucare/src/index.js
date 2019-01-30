@@ -20,7 +20,7 @@ render((
     <Route path="/" component={App}/>
     <Route path="/Header/" component={Header}/>
     <Route path="/login/" component={Login}/>
-    <Route path="/login/mypage/:id/" component={Mypage}/>
+    <Route path="/mypage/:id/" component={Mypage}/>
   </Router>
   //</BrowserRouter>
 
