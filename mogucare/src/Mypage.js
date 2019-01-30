@@ -33,15 +33,22 @@ class Mypage extends Component {
     //console.log(user);
 
     this.state = {
-      age: 7
+      age: 7,
+      settingFlg:false
     }
   }
 
-  countUp(){
+  //編集ボタン
+  buttonSetting(){
     this.setState({
-      count: this.state.count + 1,
+      settingFlg: !this.state.settingFlg,
     })
-    this.state.menber.push("d");
+  }
+
+
+  //QRコード化
+  buttonShare(){
+
   }
 
   render() {
@@ -60,11 +67,42 @@ class Mypage extends Component {
         <div>{user.id}</div>
         <div>年齢 {user.age}</div>
         <div>所在 {user.region}</div>
+        <div className="input-button" onClick={this.buttonSetting.bind(this)}>編集</div>
+        <div className="input-button" onClick={this.buttonShare.bind(this)}>共有</div>
+        <div>{this.state.settingFlg ? <Setting/>:"aa"}</div>
       </div>
     );
   }
 }
 
+class Setting extends Component{
+
+  buttonSave(){
+    let inputID = this.refs["input-ID"];
+    let inputPW = this.refs["input-PW"];
+    if(!inputID.value) return false;
+    else if(!inputPW.value) return false;
+    user.id = inputID.value;
+    user.pw = inputPW.value;
+    const list = storage.getList();
+    //まじっくなんばー IDいれたい
+    list[1].id = inputID.value;
+    storage.setList(list);
+    window.alert("保存しました");
+  }
+
+  render(){
+    return(
+      <div>
+        ID<input type="text" className="input-text" ref = "input-ID"/><br/>
+        PW<input type="text" className="input-text" ref = "input-PW"/><br/>
+        <div className="input-button" onClick={this.buttonSave.bind(this)}>保存</div>
+      </div>
+    )
+  }
+}
+
+//ひな形、たぶん使わない
 class Myinfo {
 
 }

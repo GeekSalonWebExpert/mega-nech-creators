@@ -18,8 +18,11 @@ const storage = {
 let user = {
   id:"未設定",
   pw:"未設定",
+  firstName: "未設定",
+  familyName:"未設定",
   age:"未設定",
-  region:"未設定"
+  school:"未設定",
+  remark:" "
 }
 
 let currentUser = user;
