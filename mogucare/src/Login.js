@@ -2,18 +2,10 @@ import React, { Component } from 'react';
 //import logo from './logo.svg';
 import './assets/style.css';
 import Mypage from './Mypage';
+import storage from './Mypage';
 import Header from './Header';
 import { Router, Route, IndexRoute, browserHistory, Link, withRouter } from 'react-router';
-
-//JSON形式でストレージにアクセスするオブジェクト
-const storage = {
-  setList: function(json) {
-    localStorage["users"] = JSON.stringify(json);
-  },
-  getList: function() {
-    return JSON.parse(localStorage["users"] || "[]");
-  }
-}
+import CommonPage from './CommonPage';
 
 let user = {
   id:"未設定",
@@ -29,7 +21,7 @@ let currentUser = user;
 let currentNum = -1;
 
 //ログイン処理のページ
-class Login extends Component {
+class Login extends CommonPage {
 
   constructor(props){
     super(props)

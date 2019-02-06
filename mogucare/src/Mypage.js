@@ -3,10 +3,10 @@ import logo from './logo.svg';
 import './assets/style.css';
 import Login from './Login';
 import Header from './Header';
+import CommonPage from './CommonPage';
 
 let user;
 
-//統一したい 1/30
 //JSON形式でストレージにアクセスするオブジェクト
 const storage = {
   setList: function(json) {
@@ -17,19 +17,21 @@ const storage = {
   }
 }
 
+
 //個人のページ　idによって管理する idとログイン用IDは分けるべきか？ 同じ名前でかぶる可能性がある
-class Mypage extends Component {
+class Mypage extends CommonPage {
 
 //props:params:id
 //propsとは…　urlのなかで宣言できるやつ？ idとして使う
   constructor(props){
+    //必ず一番最初に呼び出す　継承元のやつ
     super(props)
     console.log(props.params.id);
 
     //会員ナンバー（仮）からユーザーを同定
       //user オブジェクト自体を渡したほうが軽そう
     //console.log(storage.getList()[props.params.id]);
-    user = storage.getList()[props.params.id];
+    user = this.getList()[props.params.id];
     //console.log(user);
 
     this.state = {
@@ -75,7 +77,7 @@ class Mypage extends Component {
   }
 }
 
-class Setting extends Component{
+class Setting extends CommonPage{
 
   buttonSave(){
     let inputID = this.refs["input-ID"];
@@ -84,10 +86,10 @@ class Setting extends Component{
     else if(!inputPW.value) return false;
     user.id = inputID.value;
     user.pw = inputPW.value;
-    const list = storage.getList();
+    const list = this.getList();
     //まじっくなんばー IDいれたい
     list[1].id = inputID.value;
-    storage.setList(list);
+    this.setList(list);
     window.alert("保存しました");
   }
 
@@ -110,3 +112,4 @@ class Myinfo {
 
 export default Mypage;
 export { Myinfo as Myinfo };
+export {storage as storage};
