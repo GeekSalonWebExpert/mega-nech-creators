@@ -3,41 +3,30 @@ import logo from './logo.svg';
 import './assets/style.css';
 import Login from './Login';
 import Header from './Header';
-import CommonPage from './CommonPage';
+import PersonalPage from './PersonalPage';
+import QRCode from "qrcode.react"
 
 let user;
 
-//JSON形式でストレージにアクセスするオブジェクト
-const storage = {
-  setList: function(json) {
-    localStorage["users"] = JSON.stringify(json);
-  },
-  getList: function() {
-    return JSON.parse(localStorage["users"] || "[]");
-  }
-}
-
 
 //個人のページ　idによって管理する idとログイン用IDは分けるべきか？ 同じ名前でかぶる可能性がある
-class Mypage extends CommonPage {
+class Mypage extends PersonalPage {
 
 //props:params:id
 //propsとは…　urlのなかで宣言できるやつ？ idとして使う
   constructor(props){
     //必ず一番最初に呼び出す　継承元のやつ
     super(props)
-    console.log(props.params.id);
+//    console.log(props.params.id);
+    console.log(this.props.location.pathname);
 
     //会員ナンバー（仮）からユーザーを同定
       //user オブジェクト自体を渡したほうが軽そう
     //console.log(storage.getList()[props.params.id]);
     user = this.getList()[props.params.id];
+//    this.getAccountById(props.params.id);
+    this.getAccountById(0);
     //console.log(user);
-
-    this.state = {
-      age: 7,
-      settingFlg:false
-    }
   }
 
   //編集ボタン
@@ -66,18 +55,30 @@ class Mypage extends CommonPage {
     return (
       <div>
         <Header/>
-        <div>{user.id}</div>
-        <div>年齢 {user.age}</div>
-        <div>所在 {user.region}</div>
+//ここから 2/12
+        // <div>年齢 {user.age}</div>
+        // <div>所在 {user.region}</div>
         <div className="input-button" onClick={this.buttonSetting.bind(this)}>編集</div>
         <div className="input-button" onClick={this.buttonShare.bind(this)}>共有</div>
         <div>{this.state.settingFlg ? <Setting/>:"aa"}</div>
+        <QRCode value={this.props.location.pathname} />
       </div>
     );
   }
 }
 
-class Setting extends CommonPage{
+class Setting extends PersonalPage{
+
+  constructor(props){
+    //必ず一番最初に呼び出す　継承元のやつ
+    super(props)
+
+    this.state = {
+      age: 7,
+      settingFlg:false
+    }
+  }
+
 
   buttonSave(){
     let inputID = this.refs["input-ID"];
@@ -89,6 +90,7 @@ class Setting extends CommonPage{
     const list = this.getList();
     //まじっくなんばー IDいれたい
     list[1].id = inputID.value;
+    list[1].pw = inputPW.value;
     this.setList(list);
     window.alert("保存しました");
   }
@@ -112,4 +114,3 @@ class Myinfo {
 
 export default Mypage;
 export { Myinfo as Myinfo };
-export {storage as storage};

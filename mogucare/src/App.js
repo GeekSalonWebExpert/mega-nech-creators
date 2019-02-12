@@ -109,12 +109,12 @@ class App extends Component {
                 })
               }
           </div>
-              <div id="task-form">
-                <input type="text" onChange={ this.changeText }/>
-                <button onClick={ this.submitTask }>submit</button>
-              </div>
+            <div id="task-form">
+              <input type="text" onChange={ this.changeText }/>
+              <button onClick={ this.submitTask }>submit</button>
             </div>
           </div>
+        </div>
     );
   }
 }
