@@ -96,28 +96,31 @@ class App extends Component {
         <Header/>
         <div>
           ベトナムに平和をもたらす
-          <div className="tasks">
-              {
-                this.state.tasks.map( task => {
-                    return (
-                      <div className="task" key={ task.id }>
-                        { task.body }
-                        <button className="put" onClick={ ()=>{ this.putTask(task.id) } }>put</button>
-                        <button className="delete" onClick={ ()=>{ this.deleteTask(task.id) } }>delete</button>
-                      </div>
-                    )
-                })
-              }
-          </div>
-            <div id="task-form">
-              <input type="text" onChange={ this.changeText }/>
-              <button onClick={ this.submitTask }>submit</button>
-            </div>
           </div>
         </div>
     );
   }
 }
+
+//json-server 使用例
+// <div className="tasks">
+//     {
+//       this.state.tasks.map( task => {
+//           return (
+//             <div className="task" key={ task.id }>
+//               { task.body }
+//               <button className="put" onClick={ ()=>{ this.putTask(task.id) } }>put</button>
+//               <button className="delete" onClick={ ()=>{ this.deleteTask(task.id) } }>delete</button>
+//             </div>
+//           )
+//       })
+//     }
+// </div>
+//   <div id="task-form">
+//     <input type="text" onChange={ this.changeText }/>
+//     <button onClick={ this.submitTask }>submit</button>
+//   </div>
+
 
 //id付きでの移動例
 // <Mypage test={12} />

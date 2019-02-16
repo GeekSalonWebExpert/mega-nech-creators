@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Mypage from './Mypage';
 import Login from './Login';
+import Setting from './Setting';
 import Header from './Header';
 import * as serviceWorker from './serviceWorker';
 import { Router, Route, IndexRoute, browserHistory, Link , BrowserRouter} from 'react-router';
@@ -21,6 +22,7 @@ render((
     <Route path="/Header/" component={Header}/>
     <Route path="/login/" component={Login}/>
     <Route path="/mypage/:id/" component={Mypage}/>
+    <Route path="/setting/:id/" component={Setting}/>
   </Router>
   //</BrowserRouter>
 

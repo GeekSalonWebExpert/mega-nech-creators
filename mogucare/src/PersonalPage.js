@@ -22,14 +22,26 @@ class PersonalPage extends Component {
     super(props)
     // console.log(props.params.id);
     this.state = {
+    //とりあえずのロードの時間差対策用フラグ
+      //ロードが終わるとtrue、ログインボタンが使用可能、個人情報が表示される、編集ボタンが使用可能
       loadedflg:false,
+      //マイページの編集ボタンが押される毎に反転、設定画面の表示　使わなくなった、後で消す
       settingFlg:false,
       // inputTextID:"",
       // inputTextPW:"",
       currentAccount:{
         id: 1,
-        name:"aaa",
-        pw:"fff"
+        accountName:"Loading",
+        passWord:"Loading",
+        info: {
+          firstName:"未設定",
+          familyName:"未設定",
+          age:"未設定",
+          address:"未設定",
+          school:"未設定",
+          class:"未設定",
+          remark:"未設定"
+        }
       },
       tasks: [
         {
@@ -61,6 +73,7 @@ class PersonalPage extends Component {
     this.changeText = this.changeText.bind(this)
     this.changeTextID = this.changeTextID.bind(this)
     this.changeTextPW = this.changeTextPW.bind(this)
+    this.changeInfo = this.onChangeInfo.bind(this)
     this.submitTask = this.submitTask.bind(this)
     this.fetchTasks = this.fetchTasks.bind(this)
     this.getTask = this.getTask.bind(this)
@@ -177,33 +190,51 @@ class PersonalPage extends Component {
       console.dir(inputText);
     }
 
+    onChangeInfo(e, key) {
+       const inputText = e.target.value;
+       this.state.currentAccount["info"][key] = inputText;
+       console.log(this.state.currentAccount.info[key]);
+       //this.setState({ currentAccount: inputText })
+       //console.dir(inputText);
+     }
+
    submitAccount() {
+     this.setState({
+       loadedflg: false,
+     })
      fetch("http://localhost:3001/accounts", {
        method: "POST",
        headers: {
          'Accept': 'application/json',
          'Content-Type': 'application/json'
        },
-       body: JSON.stringify({ name: this.state.inputText }),
-       body: JSON.stringify({ pw: this.state.inputText })
+       body: JSON.stringify({ accountName: this.state.inputTextID,
+                              passWord: this.state.inputTextPW,
+                              info : this.state.currentAccount.info})
      })
-     .then( this.fetchAccounts )
+     .then(()=>{
+       this.setState({
+         loadedflg: true,
+       })
+     })
    }
 
-   putAccount(accountName) {
-     fetch("http://localhost:3001/accounts/"+accountName, {
+   putAccount(id) {
+     fetch("http://localhost:3001/accounts/"+id, {
        method: "PUT",
        headers: {
          'Accept': 'application/json',
          'Content-Type': 'application/json'
        },
-       body: JSON.stringify({ name: "あああ" })
+       body: JSON.stringify({ accountName: this.state.currentAccount.accountName,
+                              passWord: this.state.currentAccount.passWord,
+                              info : this.state.currentAccount.info})
      })
      .then( this.fetchAccounts )
    }
 
    getAccount(accountName) {
-     fetch("http://localhost:3001/accounts?name="+accountName, {
+     fetch("http://localhost:3001/accounts?accountName="+accountName, {
        method: "GET",
        headers: {
          'Accept': 'application/json',
@@ -217,12 +248,15 @@ class PersonalPage extends Component {
        if(!data[0]){
          return;
        }
-       return data[0].pw;
+       return data[0].passWord;
      })
    }
 
    //idを使ってアカウント情報を入手　ログイン時、QRコードからの遷移のみ使用
    getAccountById(id) {
+     this.setState({
+       loadedflg: false,
+     })
      fetch("http://localhost:3001/accounts?id="+id, {
        method: "GET",
        headers: {
@@ -234,17 +268,20 @@ class PersonalPage extends Component {
        return response.json()
      })
      .then(data=>{
-       // if(!data[0]){
-       //   return;
-       // }
+       if(!data[0]){
+         return;
+       }
        this.setState({ currentAccount: data[0] });
-       console.log(this.state.currentAccount);
+       // console.log(this.state.currentAccount);
+       this.setState({
+         loadedflg: true,
+       })
      })
    }
 
 
    deleteAccount(accountName) {
-    fetch("http://localhost:3001/tasks/"+accountName, {
+    fetch("http://localhost:3001/accounts/"+accountName, {
       method: "DELETE"
     })
     .then( this.fetchAccounts )

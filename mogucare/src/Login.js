@@ -92,15 +92,16 @@ class Login extends PersonalPage {
   //   }
   // }
 
+//サーバーを通じてのログイン
   buttonLoginSever() {
     //かんけーない
-    let inputID = this.refs["input-ID"];
-    let inputPW = this.refs["input-PW"];
-    if(!this.state.inputTextID) return false;
-    else if(!this.state.inputTextPW) return false;
+    // let inputID = this.refs["input-ID"];
+    // let inputPW = this.refs["input-PW"];
+    // if(!this.state.inputTextID) return false;
+    // else if(!this.state.inputTextPW) return false;
 
     let accountName = this.state.inputTextID;
-    fetch("http://localhost:3001/accounts?name="+accountName, {
+    fetch("http://localhost:3001/accounts?accountName="+accountName, {
       method: "GET",
       headers: {
         'Accept': 'application/json',
@@ -114,7 +115,7 @@ class Login extends PersonalPage {
       if(!data[0]){
         return;
       }
-      if(this.state.inputTextPW == data[0].pw){
+      if(this.state.inputTextPW == data[0].passWord){
         browserHistory.push(`/mypage/${data[0].id}/`);
       }
     })
@@ -123,18 +124,19 @@ class Login extends PersonalPage {
 
   //新規ユーザーをアップロード
   addNewUserSever(){
-    this.getTask(8);
+    this.submitAccount();
     return
     let inputID = this.refs["input-ID"];
     let inputPW = this.refs["input-PW"];
     if(!inputID.value) return false;
     else if(!inputPW.value) return false;
-    user.id = inputID.value;
-    user.pw = inputPW.value;
-    const list = this.getList();
-    list.push(user);
-    this.setList(list);
-    window.alert("登録しました");
+
+    // user.id = inputID.value;
+    // user.pw = inputPW.value;
+    // const list = this.getList();
+    // list.push(user);
+    // this.setList(list);
+    // window.alert("登録しました");
   }
 
 
@@ -161,23 +163,6 @@ class Login extends PersonalPage {
              // <div className="input-button" onClick={this.addNewUser.bind(this)}>新規登録</div>
              <div className="input-button" onClick={this.addNewUserSever.bind(this)}>新規登録</div>
            :"loading"}</div>
-         </div>
-         <div className="tasks">
-             {
-               this.state.tasks.map( task => {
-                   return (
-                     <div className="task" key={ task.id }>
-                       { task.body }
-                       <button className="put" onClick={ ()=>{ this.putTask(task.id) } }>put</button>
-                       <button className="delete" onClick={ ()=>{ this.deleteTask(task.id) } }>delete</button>
-                     </div>
-                   )
-               })
-             }
-         </div>
-         <div id="task-form">
-           <input type="text" onChange={ this.changeText }/>
-           <button onClick={ this.submitTask }>submit</button>
          </div>
         </div>
       </div>
