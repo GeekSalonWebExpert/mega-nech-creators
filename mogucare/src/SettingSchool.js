@@ -11,7 +11,7 @@ let user;
 
 
 //個人のページ　idによって管理する idとログイン用IDは分けるべきか？ 同じ名前でかぶる可能性がある
-class Setting extends PersonalPage {
+class SettingSchool extends PersonalPage {
 //props:params:id
 //propsとは…　urlのなかで宣言できるやつ？ idとして使う
   constructor(props){
@@ -23,7 +23,7 @@ class Setting extends PersonalPage {
       //user オブジェクト自体を渡したほうが軽そう
     //console.log(storage.getList()[props.params.id]);
     //user = this.getList()[props.params.id];
-   this.getAccountById(props.params.id);
+   this.getAccountById(props.params.id,"school");
     // this.getAccountById(0);
     // console.log(this.state.currentAccount);
     //console.log(user);
@@ -36,7 +36,7 @@ class Setting extends PersonalPage {
 
   //マイページへ戻る
   buttonReturn(){
-    browserHistory.push(`/mypage/${this.state.currentAccount.id}/`);
+    browserHistory.push(`/schoolpage/${this.state.currentAdminAccount.id}/`);
   }
 
 
@@ -53,25 +53,17 @@ class Setting extends PersonalPage {
     return (
       <div>
         <Header/>
-        <div>{this.state.loadedflg ? "名前:"+this.state.currentAccount.info.firstName:"loading"}
+        <div>{this.state.loadedflg ? "保育園名:"+this.state.currentAdminAccount.info.firstName:"loading"}
           <input type="text" className="input-text"  onChange={(e) => this.onChangeInfo(e, 'firstName')}/><br/></div>
-        <div>{this.state.loadedflg ? "苗字:"+this.state.currentAccount.info.familyName:"loading"}</div>
-          <input type="text" className="input-text"  onChange={(e) => this.onChangeInfo(e, 'familyName')}/><br/>
-        <div>{this.state.loadedflg ? "年齢:"+this.state.currentAccount.info.age:"loading"}</div>
-          <input type="text" className="input-text"  onChange={(e) => this.onChangeInfo(e, 'age')}/><br/>
-        <div>{this.state.loadedflg ? "住所:"+this.state.currentAccount.info.address:"loading"}</div>
+        <div>{this.state.loadedflg ? "住所:"+this.state.currentAdminAccount.info.address:"loading"}</div>
           <input type="text" className="input-text"  onChange={(e) => this.onChangeInfo(e, 'address')}/><br/>
-        <div>{this.state.loadedflg ? "保育園:"+this.state.currentAccount.info.school:"loading"}</div>
-          <input type="text" className="input-text"  onChange={(e) => this.onChangeInfo(e, 'school')}/><br/>
-        <div>{this.state.loadedflg ? "クラス:"+this.state.currentAccount.info.class:"loading"}</div>
-          <input type="text" className="input-text"  onChange={(e) => this.onChangeInfo(e, 'class')}/><br/>
-        <div>{this.state.loadedflg ? "備考:"+this.state.currentAccount.info.remark:"loading"}</div>
+        <div>{this.state.loadedflg ? "備考:"+this.state.currentAdminAccount.info.remark:"loading"}</div>
           <input type="text" className="input-text"  onChange={(e) => this.onChangeInfo(e, 'remark')}/><br/>
         <div className="input-button" onClick={this.buttonSave.bind(this)}>保存</div>
-        <div className="input-button" onClick={this.buttonReturn.bind(this)}>マイページへ戻る</div>
+        <div className="input-button" onClick={this.buttonReturn.bind(this)}>保育園ページへ戻る</div>
       </div>
     );
   }
 }
 
-export default Setting;
+export default SettingSchool;

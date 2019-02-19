@@ -76,30 +76,8 @@ class Login extends PersonalPage {
     window.alert("登録しました");
   }
 
-  //サーバーの情報を基にログイン
-  // buttonLoginSever(){
-  //   let inputID = this.refs["input-ID"];
-  //   let inputPW = this.refs["input-PW"];
-  //   if(!inputID.value) return false;
-  //   else if(!inputPW.value) return false;
-  //   // if(!this.getAccount(inputID.value)){
-  //   //   window.alert("だめ");
-  //   //   return;
-  //   // }
-  //   let getedPW = this.getAccount(inputID.value);
-  //   if(inputPW.value == getedPW){
-  //     window.alert("ろぐいん");
-  //   }
-  // }
-
 //サーバーを通じてのログイン
   buttonLoginSever() {
-    //かんけーない
-    // let inputID = this.refs["input-ID"];
-    // let inputPW = this.refs["input-PW"];
-    // if(!this.state.inputTextID) return false;
-    // else if(!this.state.inputTextPW) return false;
-
     let accountName = this.state.inputTextID;
     fetch("http://localhost:3001/accounts?accountName="+accountName, {
       method: "GET",
@@ -121,24 +99,38 @@ class Login extends PersonalPage {
     })
   }
 
+  //管理者ユーザーとしてログイン
+  buttonAdminLoginSever(){
+    let accountName = this.state.inputTextID;
+    fetch("http://localhost:3001/adminAccounts?accountName="+accountName, {
+      method: "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response)=>{
+      return response.json()
+    })
+    .then(data=>{
+      if(!data[0]){
+        return;
+      }
+      if(this.state.inputTextPW == data[0].passWord){
+        browserHistory.push(`/schoolpage/${data[0].id}/`);
+      }
+    })
+  }
 
   //新規ユーザーをアップロード
   addNewUserSever(){
-    this.submitAccount();
-    return
-    let inputID = this.refs["input-ID"];
-    let inputPW = this.refs["input-PW"];
-    if(!inputID.value) return false;
-    else if(!inputPW.value) return false;
-
-    // user.id = inputID.value;
-    // user.pw = inputPW.value;
-    // const list = this.getList();
-    // list.push(user);
-    // this.setList(list);
-    // window.alert("登録しました");
+    this.submitAccount("parent");
   }
 
+  //新規管理者ユーザーをアップロード
+  addNewAdminUserSever(){
+    this.submitAccount("school");
+  }
 
   componentDidMount(){
     //refs とは…　htmlぽい記述内で宣言するやつ
@@ -156,12 +148,16 @@ class Login extends PersonalPage {
            ID<input type="text" className="input-text" ref = "input-ID" onChange={ this.changeTextID }/><br/>
            PW<input type="text" className="input-text" ref="input-PW" onChange={ this.changeTextPW }/>
            <div>{this.state.loadedflg ?
-             // <div className="input-button" onClick={this.buttonLogin.bind(this)}>ログイン</div>
-             <div className="input-button" onClick={this.buttonLoginSever.bind(this)}>ログイン</div>
+             <div className="input-button" onClick={this.buttonLoginSever.bind(this)}>保護者としてログイン</div>
            :"loading"}</div>
            <div>{this.state.loadedflg ?
-             // <div className="input-button" onClick={this.addNewUser.bind(this)}>新規登録</div>
-             <div className="input-button" onClick={this.addNewUserSever.bind(this)}>新規登録</div>
+             <div className="input-button" onClick={this.buttonAdminLoginSever.bind(this)}>保育園管理者ログイン</div>
+           :"loading"}</div>
+           <div>{this.state.loadedflg ?
+             <div className="input-button" onClick={this.addNewUserSever.bind(this)}>保護者として新規登録</div>
+           :"loading"}</div>
+           <div>{this.state.loadedflg ?
+             <div className="input-button" onClick={this.addNewAdminUserSever.bind(this)}>保育園管理者として新規登録</div>
            :"loading"}</div>
          </div>
         </div>

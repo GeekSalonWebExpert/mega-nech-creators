@@ -50,7 +50,7 @@
       "info": {
         "firstName": "さとる",
         "familyName": "おち",
-        "age": 5,
+        "age": "2222",
         "address": "japan-tokyo",
         "school": "お花畑保育園",
         "class": "ひまわり組",
@@ -59,7 +59,6 @@
       "id": 0
     },
     {
-      "id": 1,
       "accountName": "temp",
       "passWord": "temp",
       "info": {
@@ -70,7 +69,8 @@
         "school": "xxx-school",
         "class": "xxx-class",
         "remark": "xxx"
-      }
+      },
+      "id": 1
     },
     {
       "accountName": "aaa",
@@ -99,6 +99,102 @@
         "remark": "未設定"
       },
       "id": 5
+    },
+    {
+      "accountName": "aaa",
+      "passWord": "ddd",
+      "info": {
+        "firstName": "未設定",
+        "familyName": "未設定",
+        "age": "未設定",
+        "address": "未設定",
+        "school": "未設定",
+        "class": "未設定",
+        "remark": "未設定"
+      },
+      "id": 6
+    },
+    {
+      "accountName": "ore",
+      "passWord": "ore",
+      "info": {
+        "firstName": "未設定",
+        "familyName": "未設定",
+        "age": "未設定",
+        "address": "未設定",
+        "school": "未設定",
+        "class": "未設定",
+        "remark": "未設定"
+      },
+      "id": 7
+    },
+    {
+      "accountName": "rere",
+      "passWord": "rere",
+      "info": {
+        "firstName": "未設定",
+        "familyName": "未設定",
+        "age": "未設定",
+        "address": "未設定",
+        "school": "未設定",
+        "class": "未設定",
+        "remark": "未設定"
+      },
+      "id": 8
+    }
+  ],
+  "adminAccounts": [
+    {
+      "id": 1,
+      "accountName": "geeksalon",
+      "passWord": "geek",
+      "info": {
+        "schoolName": "geeksalon",
+        "combinationID": [
+          "combi1"
+        ],
+        "classes": [
+          "ios組",
+          "web組",
+          "unity組"
+        ],
+        "address": "japan-tokyo",
+        "remark": "3カ月で成果を出します"
+      }
+    },
+    {
+      "accountName": "fefe",
+      "passWord": "fefe",
+      "info": {
+        "schoolName": "未設定",
+        "combinationID": [
+          "未設定"
+        ],
+        "classes": [
+          "未設定"
+        ],
+        "address": "未設定",
+        "remark": "未設定"
+      },
+      "id": 2
+    }
+  ],
+  "combinations": [
+    {
+      "id": 0,
+      "list": [
+        0,
+        2,
+        5
+      ]
+    },
+    {
+      "id": 1,
+      "list": [
+        1,
+        2,
+        3
+      ]
     }
   ]
 }

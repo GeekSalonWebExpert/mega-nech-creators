@@ -5,7 +5,9 @@ import App from './App';
 import Mypage from './Mypage';
 import Login from './Login';
 import Setting from './Setting';
+import SettingSchool from './SettingSchool';
 import Header from './Header';
+import SchoolPage from './SchoolPage';
 import * as serviceWorker from './serviceWorker';
 import { Router, Route, IndexRoute, browserHistory, Link , BrowserRouter} from 'react-router';
 import { render } from "react-dom";
@@ -22,7 +24,9 @@ render((
     <Route path="/Header/" component={Header}/>
     <Route path="/login/" component={Login}/>
     <Route path="/mypage/:id/" component={Mypage}/>
+    <Route path="/schoolpage/:id/" component={SchoolPage}/>
     <Route path="/setting/:id/" component={Setting}/>
+    <Route path="/settingschool/:id/" component={SettingSchool}/>
   </Router>
   //</BrowserRouter>
 

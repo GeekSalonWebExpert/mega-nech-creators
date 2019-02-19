@@ -43,6 +43,18 @@ class PersonalPage extends Component {
           remark:"未設定"
         }
       },
+      currentAdminAccount:{
+        id:1,
+        accountName:"Loading",
+        passWord:"Loading",
+        info:{
+          schoolName:"未設定",
+          combinationID:["未設定"],
+          classes:["未設定"],
+          address:"未設定",
+          remark:"未設定"
+        }
+      },
       tasks: [
         {
           id: 1,
@@ -68,8 +80,33 @@ class PersonalPage extends Component {
             remark:"３時間に一回発狂する病気です。"
           }
         }
+      ],
+      adminAccounts: [
+        {
+          id:1,
+          accountName:"geeksalon",
+          passWord:"geek",
+          info:{
+            schoolName:"geeksalon",
+            combinationID:["combi1"],
+            classes:["ios組", "web組", "unity組"],
+            address:"japan-tokyo",
+            remark:"3カ月で成果を出します"
+          }
+        }
+      ],
+      combinations:[
+        {
+          id: "combi1",
+          list: [0,2,5]
+        },
+        {
+          id: "combi2",
+          list: [1,2,3]
+        }
       ]
     }
+
     this.changeText = this.changeText.bind(this)
     this.changeTextID = this.changeTextID.bind(this)
     this.changeTextPW = this.changeTextPW.bind(this)
@@ -163,7 +200,6 @@ class PersonalPage extends Component {
   }
 
 ////アカウント
-
   fetchAccounts(){
     this.setState({
       loadedflg: false,
@@ -174,7 +210,7 @@ class PersonalPage extends Component {
       this.setState({
         loadedflg: true,
       })
-      this.setState({ tasks: json }) // Stateを更新する
+      this.setState({ accounts: json }) // Stateを更新する
     })
   }
 
@@ -198,11 +234,22 @@ class PersonalPage extends Component {
        //console.dir(inputText);
      }
 
-   submitAccount() {
+//type はparent or school の文字列
+   submitAccount(type="parent") {
+     let name="";
+     let currentType="";
+     if(type=="parent"){
+        name="accounts";
+        currentType="currentAccount";
+     }else if(type=="school"){
+       name="adminAccounts";
+       currentType="currentAdminAccount";
+     }
+
      this.setState({
        loadedflg: false,
      })
-     fetch("http://localhost:3001/accounts", {
+     fetch("http://localhost:3001/"+name, {
        method: "POST",
        headers: {
          'Accept': 'application/json',
@@ -210,7 +257,7 @@ class PersonalPage extends Component {
        },
        body: JSON.stringify({ accountName: this.state.inputTextID,
                               passWord: this.state.inputTextPW,
-                              info : this.state.currentAccount.info})
+                              info : this.state[currentType].info})
      })
      .then(()=>{
        this.setState({
@@ -219,22 +266,41 @@ class PersonalPage extends Component {
      })
    }
 
-   putAccount(id) {
-     fetch("http://localhost:3001/accounts/"+id, {
+   putAccount(id, type="parent") {
+     let name="";
+     let currentType="";
+     if(type=="parent"){
+        name="accounts";
+        currentType="currentAccount";
+     }else if(type=="school"){
+       name="adminAccounts";
+       currentType="currentAdminAccount";
+     }
+
+     fetch("http://localhost:3001/"+name+"/"+id, {
        method: "PUT",
        headers: {
          'Accept': 'application/json',
          'Content-Type': 'application/json'
        },
-       body: JSON.stringify({ accountName: this.state.currentAccount.accountName,
-                              passWord: this.state.currentAccount.passWord,
-                              info : this.state.currentAccount.info})
+       body: JSON.stringify({ accountName: this.state[currentType].accountName,
+                              passWord: this.state[currentType].passWord,
+                              info : this.state[currentType].info})
      })
      .then( this.fetchAccounts )
    }
 
-   getAccount(accountName) {
-     fetch("http://localhost:3001/accounts?accountName="+accountName, {
+   getAccount(accountName, type) {
+     let name="";
+     let currentType="";
+     if(type=="parent"){
+        name="accounts";
+        currentType="currentAccount";
+     }else if(type=="school"){
+       name="adminAccounts";
+       currentType="currentAdminAccount";
+     }
+     fetch("http://localhost:3001/"+name+"?accountName="+accountName, {
        method: "GET",
        headers: {
          'Accept': 'application/json',
@@ -253,11 +319,20 @@ class PersonalPage extends Component {
    }
 
    //idを使ってアカウント情報を入手　ログイン時、QRコードからの遷移のみ使用
-   getAccountById(id) {
+   getAccountById(id, type="parent") {
+     let name="";
+     let currentType="";
+     if(type=="parent"){
+        name="accounts";
+        currentType="currentAccount";
+     }else if(type=="school"){
+       name="adminAccounts";
+       currentType="currentAdminAccount";
+     }
      this.setState({
        loadedflg: false,
      })
-     fetch("http://localhost:3001/accounts?id="+id, {
+     fetch("http://localhost:3001/"+name+"?id="+id, {
        method: "GET",
        headers: {
          'Accept': 'application/json',
@@ -271,7 +346,11 @@ class PersonalPage extends Component {
        if(!data[0]){
          return;
        }
-       this.setState({ currentAccount: data[0] });
+       if(type=="parent"){
+         this.setState({ currentAccount: data[0] });
+       }else if(type=="school"){
+         this.setState({ currentAdminAccount: data[0] });
+       }
        // console.log(this.state.currentAccount);
        this.setState({
          loadedflg: true,
