@@ -50,7 +50,11 @@ class PersonalPage extends Component {
         info:{
           schoolName:"未設定",
           combinationID:["未設定"],
-          classes:["未設定"],
+          classes:[{
+            id:"未設定",
+            name:"未設定",
+            list:["未設定"]
+          }],
           address:"未設定",
           remark:"未設定"
         }
@@ -89,7 +93,21 @@ class PersonalPage extends Component {
           info:{
             schoolName:"geeksalon",
             combinationID:["combi1"],
-            classes:["ios組", "web組", "unity組"],
+            classes:[{
+              id:1,
+              name:"ios組",
+              list:[1,2,5]
+            },
+            {
+              id:2,
+              name:"web組",
+              list:[1,2]
+            },
+            {
+              id:3,
+              name:"unity組",
+              list:[8,3,7]
+            }],
             address:"japan-tokyo",
             remark:"3カ月で成果を出します"
           }

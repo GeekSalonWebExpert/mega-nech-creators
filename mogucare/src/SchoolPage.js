@@ -15,6 +15,7 @@ class SchoolPage extends PersonalPage {
     console.log(this.props.location.pathname);
    this.getAccountById(props.params.id, "school");
     this.state.qrflg = false;
+    //console.log(this.state.currentAdminAccount);
   }
 
   //編集ボタン
@@ -30,8 +31,29 @@ class SchoolPage extends PersonalPage {
   render() {
     return (
       <div>
-        <Header/>
+        <Header activeCategory={"login"} />
         <div>{this.state.loadedflg ? "保育園名:"+this.state.currentAdminAccount.info.schoolName:"loading"}</div>
+        <div>{this.state.loadedflg ? "住所:"+this.state.currentAdminAccount.info.address:"loading"}</div>
+        <div>{this.state.loadedflg ? "備考:"+this.state.currentAdminAccount.info.remark:"loading"}</div>
+        <div>
+          { Array.isArray(this.state.currentAdminAccount.info.classes) ? this.state.currentAdminAccount.info.classes.map( cla =>{
+              return (
+                <div key={ cla.id }>
+                  {cla.name}
+                  <div>
+                    {cla.list.map( child =>{
+                      return (
+                        <div>
+                          {child}
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )
+            })
+          :"loading"}
+        </div>
         <div className="input-button" onClick={this.buttonSetting.bind(this)}>編集</div>
         <div className="input-button" onClick={this.buttonShare.bind(this)}>共有</div>
         <div>{this.state.qrflg ? <QRCode value={this.props.location.pathname} />:""}</div>

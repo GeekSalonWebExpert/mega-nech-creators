@@ -7,10 +7,11 @@ import {Router, Route, IndexRoute, browserHistory, Link } from 'react-router';
 
 //ヘッダー　すべてのページで読み込む　あとで引数から現在のページをハイライトする
 class Header extends Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
     }
+    console.log(props);
   }
 
   render() {
@@ -26,8 +27,8 @@ class Header extends Component {
               モックアップバージョン
             </div>
             <ul id="topnav">
-              <li className="active"><Link to={"/"}>トップページ<br/><span>Top</span></Link></li>
-              <li><Link to={"/login/"}>マイページ<br/><span>MyPage</span></Link></li>
+              <li className={this.props.activeCategory === "top" && "active"}><Link to={"/"}>トップページ<br/><span>Top</span></Link></li>
+              <li className={this.props.activeCategory === "login" && "active"}><Link to={"/login/"}>ログイン<br/><span>Login</span></Link></li>
             </ul>
           </div>
         </div>

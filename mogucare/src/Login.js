@@ -141,7 +141,7 @@ class Login extends PersonalPage {
   render() {
     return (
       <div>
-        <Header/>
+      <Header activeCategory={"login"} />
         ろぐいんするのじゃ
         <div className="mypage-container" id="mypage-container">
            <div className="login-container">IDとパスワードを入力<br/>

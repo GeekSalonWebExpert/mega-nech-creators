@@ -93,33 +93,34 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header/>
+      <Header parentState={this.state} activeCategory={"top"} />
         <div>
           ベトナムに平和をもたらす
           </div>
+          <div className="tasks">
+              {
+                this.state.tasks.map( task => {
+                    return (
+                      <div className="task" key={ task.id }>
+                        { task.body }
+                        <button className="put" onClick={ ()=>{ this.putTask(task.id) } }>put</button>
+                        <button className="delete" onClick={ ()=>{ this.deleteTask(task.id) } }>delete</button>
+                      </div>
+                    )
+                })
+              }
+          </div>
+            <div id="task-form">
+              <input type="text" onChange={ this.changeText }/>
+              <button onClick={ this.submitTask }>submit</button>
+            </div>
+
         </div>
     );
   }
 }
 
 //json-server 使用例
-// <div className="tasks">
-//     {
-//       this.state.tasks.map( task => {
-//           return (
-//             <div className="task" key={ task.id }>
-//               { task.body }
-//               <button className="put" onClick={ ()=>{ this.putTask(task.id) } }>put</button>
-//               <button className="delete" onClick={ ()=>{ this.deleteTask(task.id) } }>delete</button>
-//             </div>
-//           )
-//       })
-//     }
-// </div>
-//   <div id="task-form">
-//     <input type="text" onChange={ this.changeText }/>
-//     <button onClick={ this.submitTask }>submit</button>
-//   </div>
 
 
 //id付きでの移動例

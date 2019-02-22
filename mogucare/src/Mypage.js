@@ -57,7 +57,7 @@ class Mypage extends PersonalPage {
 
     return (
       <div>
-        <Header/>
+      <Header activeCategory={"login"} />
         <div>{this.state.loadedflg ? "名前:"+this.state.currentAccount.info.firstName:"loading"}</div>
         <div>{this.state.loadedflg ? "苗字:"+this.state.currentAccount.info.familyName:"loading"}</div>
         <div>{this.state.loadedflg ? "年齢:"+this.state.currentAccount.info.age:"loading"}</div>
